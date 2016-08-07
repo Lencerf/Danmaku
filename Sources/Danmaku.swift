@@ -1,6 +1,6 @@
 import Foundation
 
-enum DanmakuPosition: Int {
+public enum DanmakuPosition: Int {
     case normal = 0// 0
     case top // 1
     case bottom  // 2
@@ -8,7 +8,7 @@ enum DanmakuPosition: Int {
     case special //4
 }
 
-struct Danmaku {
+public struct Danmaku {
     let replayTime: Double // 0
     let content: String //3
     var validContent: String {

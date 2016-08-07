@@ -2,12 +2,12 @@ import Foundation
 
 typealias StageArrage = [Danmaku?]
 
-protocol DanmakuProcessor {
+public protocol DanmakuProcessor {
     func parse(rawData: Data) -> [Danmaku]
     func treatSpecialDanmaku(_ danmaku: Danmaku, videoWidth: Int, videoHeight: Int, sytleId: String) -> String
 }
 
-class Danmaku2Ass {
+public class Danmaku2Ass {
     private let processor: DanmakuProcessor
     private let rawData: Data
     private let videoWidth:Int

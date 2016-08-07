@@ -1,6 +1,6 @@
 import Foundation
 
-class BiliDanmakuProcessor:NSObject, DanmakuProcessor, XMLParserDelegate {
+public class BiliDanmakuProcessor:NSObject, DanmakuProcessor, XMLParserDelegate {
     private let positionDict: [String : DanmakuPosition] = [
         "1": .normal,
         "4": .bottom,
@@ -9,7 +9,7 @@ class BiliDanmakuProcessor:NSObject, DanmakuProcessor, XMLParserDelegate {
         "7": .special
     ]
     
-    func parse(rawData: Data) -> [Danmaku] {
+    public func parse(rawData: Data) -> [Danmaku] {
         let xmlParser = XMLParser.init(data: rawData)
         xmlParser.delegate = self
         xmlParser.parse()
@@ -17,7 +17,7 @@ class BiliDanmakuProcessor:NSObject, DanmakuProcessor, XMLParserDelegate {
         return danmakuArray
     }
     
-    func treatSpecialDanmaku(_ danmaku: Danmaku, videoWidth: Int, videoHeight: Int, sytleId: String) -> String {
+    public func treatSpecialDanmaku(_ danmaku: Danmaku, videoWidth: Int, videoHeight: Int, sytleId: String) -> String {
         return "\n"
     }
     
@@ -29,7 +29,7 @@ class BiliDanmakuProcessor:NSObject, DanmakuProcessor, XMLParserDelegate {
     private var danmakuAttribute = ""
     private var danmakuIndex = 0
     
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+    public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         guard
             elementName == "d",
             let attr = attributeDict["p"]
@@ -39,13 +39,13 @@ class BiliDanmakuProcessor:NSObject, DanmakuProcessor, XMLParserDelegate {
         self.insideD = true
         self.danmakuAttribute = attr
     }
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
+    public func parser(_ parser: XMLParser, foundCharacters string: String) {
         if insideD {
             danmakuContent = string
         }
     }
     
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "d" {
             self.insideD = false
             let attrArray = danmakuAttribute.components(separatedBy: ",")
